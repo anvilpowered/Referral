@@ -1,18 +1,10 @@
 import java.text.SimpleDateFormat
 
 plugins {
-    id 'java'
     id "net.kyori.blossom" version "1.1.0"
-
 }
 
-group modGroup
-version modVersion
-
-sourceCompatibility = 1.8
-
 repositories {
-    mavenCentral()
     maven { url 'https://repo.spongepowered.org/maven' }
 }
 
@@ -21,15 +13,12 @@ dependencies {
 
     implementation project(':api')
 
-    implementation project(':MSRepository:msr-api')
-    implementation project(':MSRepository:msr-api:api-repository')
-    implementation project(':MSRepository:msr-api:api-repository:api-repository-mongodb')
-    implementation project(':MSRepository:msr-api:api-config')
-
-    implementation project(':MSRepository:msr-common')
-    implementation project(':MSRepository:msr-common:common-repository')
-    implementation project(':MSRepository:msr-common:common-repository:common-repository-mongodb')
-    implementation project(':MSRepository:msr-common:common-config')
+    implementation anvil_api
+    implementation anvil_api_mongodb
+    implementation anvil_api_xodus
+    implementation anvil_base
+    implementation anvil_base_mongodb
+    implementation anvil_base_xodus
 
     implementation configurate_core
     implementation configurate_hocon
@@ -38,7 +27,7 @@ dependencies {
 }
 
 blossom {
-    replaceToken '$modVersion', modVersion
+    replaceToken '$modVersion', version
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss z")
     format.setTimeZone(TimeZone.getTimeZone("UTC"))
     String buildDate = format.format(new Date())

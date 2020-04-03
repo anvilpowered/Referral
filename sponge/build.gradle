@@ -2,16 +2,11 @@ plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'org.spongepowered.plugin' version '0.9.0'
-
 }
 
-group modGroup
-version modVersion
-
-sourceCompatibility = 1.8
+jar.enabled = false
 
 repositories {
-    mavenCentral()
     maven { url 'https://repo.spongepowered.org/maven' }
 }
 
@@ -20,15 +15,11 @@ dependencies {
 
     implementation project(':api')
     implementation project(':common')
-    implementation project(':MSRepository:msr-api')
-    implementation project(':MSRepository:msr-api:api-config')
-    implementation project(':MSRepository:msr-api:api-repository')
-    implementation project(':MSRepository:msr-api:api-repository:api-repository-mongodb')
-    implementation project(':MSRepository:msr-common')
-    implementation project(':MSRepository:msr-common:common-config')
-    implementation project(':MSRepository:msr-common:common-repository')
-    implementation project(':MSRepository:msr-common:common-repository:common-repository-mongodb')
-    implementation project(':MSRepository:msr-sponge')
+
+    implementation anvil_api
+    implementation anvil_api_mongodb
+    implementation anvil_api_xodus
+    implementation anvil_base
 
     implementation configurate_core
     implementation configurate_hocon
@@ -43,12 +34,17 @@ dependencies {
     }
     annotationProcessor 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
 }
-
 shadowJar {
-    archiveName = "${modBaseName}-Sponge-${modVersion}.jar"
+    String jarName = "Referral-Sponge-${project.version}.jar"
+    println "Building: " + jarName
+    archiveFileName = jarName
 
     dependencies {
         include project(':api')
         include project(':common')
     }
+}
+
+artifacts {
+    archives shadowJar
 }
