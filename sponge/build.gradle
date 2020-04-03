@@ -28,11 +28,11 @@ dependencies {
     implementation javasisst
     implementation mongo_java_driver
 
-    compileOnly('org.spongepowered:spongeapi:7.2.0-SNAPSHOT') {
+    compileOnly('org.spongepowered:spongeapi:7.3.0-SNAPSHOT') {
         exclude(module: 'configurate-gson')
         exclude(module: 'configurate-yaml')
     }
-    annotationProcessor 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
+    annotationProcessor 'org.spongepowered:spongeapi:7.3.0-SNAPSHOT'
 }
 shadowJar {
     String jarName = "Referral-Sponge-${project.version}.jar"
