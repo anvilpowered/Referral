@@ -66,7 +66,7 @@ public abstract class CommonReferralCommandNode<TCommandExecutor, TCommandSource
 
     protected CommonReferralCommandNode(Registry registry) {
         this.registry = registry;
-        registry.addRegistryLoadedListener(() -> {
+        registry.whenLoaded(() -> {
             if (alreadyLoaded) return;
             loadCommands();
             alreadyLoaded = true;

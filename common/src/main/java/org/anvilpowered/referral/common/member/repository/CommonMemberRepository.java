@@ -19,7 +19,7 @@
 package org.anvilpowered.referral.common.member.repository;
 
 import org.anvilpowered.anvil.api.datastore.DataStoreContext;
-import org.anvilpowered.anvil.base.repository.BaseRepository;
+import org.anvilpowered.anvil.base.datastore.BaseRepository;
 import org.anvilpowered.referral.api.member.repository.MemberRepository;
 import org.anvilpowered.referral.api.model.member.Member;
 

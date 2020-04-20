@@ -18,8 +18,8 @@
 
 package org.anvilpowered.referral.api.member;
 
+import org.anvilpowered.anvil.api.datastore.Manager;
 import org.anvilpowered.referral.api.member.repository.MemberRepository;
-import org.anvilpowered.anvil.api.manager.Manager;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;

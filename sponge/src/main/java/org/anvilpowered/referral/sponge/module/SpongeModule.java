@@ -35,7 +35,6 @@ public class SpongeModule extends CommonModule<User, Player, Text, CommandSource
     protected void configure() {
         super.configure();
 
-        System.out.println("Binding command node");
         bind(CommonConfigurationService.class).to(SpongeConfigurationService.class);
         bind(new TypeLiteral<CommandNode<CommandSource>>() {
         }).to(SpongeReferralCommandNode.class);

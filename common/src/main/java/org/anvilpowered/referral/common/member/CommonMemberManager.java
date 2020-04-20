@@ -23,7 +23,7 @@ import org.anvilpowered.anvil.api.data.registry.Registry;
 import org.anvilpowered.anvil.api.plugin.PluginInfo;
 import org.anvilpowered.anvil.api.util.TextService;
 import org.anvilpowered.anvil.api.util.UserService;
-import org.anvilpowered.anvil.base.manager.BaseManager;
+import org.anvilpowered.anvil.base.datastore.BaseManager;
 import org.anvilpowered.referral.api.member.MemberManager;
 import org.anvilpowered.referral.api.member.repository.MemberRepository;
 import org.anvilpowered.referral.api.model.member.Member;

@@ -20,19 +20,19 @@ package org.anvilpowered.referral.common.module;
 
 import com.google.common.reflect.TypeToken;
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 import org.anvilpowered.anvil.api.Anvil;
 import org.anvilpowered.anvil.api.data.config.ConfigurationService;
 import org.anvilpowered.anvil.api.data.registry.Registry;
-import org.anvilpowered.anvil.api.manager.annotation.MongoDBComponent;
 import org.anvilpowered.anvil.api.misc.BindingExtensions;
 import org.anvilpowered.anvil.api.plugin.PluginInfo;
 import org.anvilpowered.referral.api.member.MemberManager;
 import org.anvilpowered.referral.api.member.repository.MemberRepository;
-import org.anvilpowered.referral.common.plugin.ReferralPluginInfo;
 import org.anvilpowered.referral.common.data.config.CommonConfigurationService;
 import org.anvilpowered.referral.common.data.registry.CommonRegistry;
 import org.anvilpowered.referral.common.member.CommonMemberManager;
 import org.anvilpowered.referral.common.member.repository.CommonMongoMemberRepository;
+import org.anvilpowered.referral.common.plugin.ReferralPluginInfo;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
@@ -55,7 +55,7 @@ public class CommonModule<
             },
             new TypeToken<CommonMongoMemberRepository>(getClass()) {
             },
-            MongoDBComponent.class
+            Names.named("mongodb")
         );
 
         be.bind(
@@ -72,7 +72,7 @@ public class CommonModule<
             }
         );
 
-        be.withContexts(MongoDBComponent.class);
+        be.withMongoDB();
 
         bind(ConfigurationService.class).to(CommonConfigurationService.class);
         bind(Registry.class).to(CommonRegistry.class);
