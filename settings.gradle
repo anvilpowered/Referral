@@ -1,5 +1,5 @@
 rootProject.name = 'Referral'
 
-include 'api'
-include 'common'
-include 'sponge'
+include 'referral-api'
+include 'referral-common'
+include 'referral-sponge'

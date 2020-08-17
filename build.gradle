@@ -1,10 +1,15 @@
-allprojects {
-    group = "org.anvilpowered"
-    version = "A1.0-1.0.0-SNAPSHOT"
+plugins {
+    id 'java'
 }
+
 subprojects {
     apply plugin: 'java'
+    group = "org.anvilpowered"
+    version = "0.1.0-SNAPSHOT"
     sourceCompatibility = 1.8
+    if (project.hasProperty("buildNumber") && version.contains("-SNAPSHOT")) {
+        version = version.replace("-SNAPSHOT", "-RC${buildNumber}")
+    }
     repositories {
         mavenCentral()
         maven { url 'https://repo.spongepowered.org/maven' }
@@ -12,9 +17,6 @@ subprojects {
         maven { url 'https://jetbrains.bintray.com/xodus' }
     }
     dependencies {
-        implementation 'org.anvilpowered:anvil-api:1.0-SNAPSHOT'
-    }
-    if (project.hasProperty("buildNumber") && version.contains("-SNAPSHOT")) {
-        version = version.replace("-SNAPSHOT", "-RC${buildNumber}")
+        implementation anvil_api
     }
 }
