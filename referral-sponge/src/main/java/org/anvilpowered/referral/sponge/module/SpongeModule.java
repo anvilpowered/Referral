@@ -37,7 +37,6 @@ public class SpongeModule extends CommonModule<
 
     @Override
     protected void configure() {
-        System.out.println("Binding Sponge config service");
         super.configure();
         bind(CommonConfigurationService.class).to(SpongeConfigurationService.class);
 

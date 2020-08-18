@@ -47,6 +47,7 @@ public class SpongeReferralCommandNode
         super(registry);
     }
 
+    @Override
     public void loadCommands() {
 
         Map<List<String>, CommandSpec> subCommands = new HashMap<>();
