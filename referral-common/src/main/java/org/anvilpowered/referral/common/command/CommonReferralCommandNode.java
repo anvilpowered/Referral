@@ -37,12 +37,12 @@ import java.util.function.Predicate;
 public abstract class CommonReferralCommandNode<TCommandExecutor, TCommandSource>
     implements CommandNode<TCommandSource> {
 
-    protected static final List<String> FROM_ALIAS = Arrays.asList("from", "by");
+    protected static final List<String> BY_ALIAS = Arrays.asList("by");
     protected static final List<String> INFO_ALIAS = Arrays.asList("info", "check");
     protected static final List<String> HELP_ALIAS = Collections.singletonList("help");
     protected static final List<String> VERSION_ALIAS = Collections.singletonList("version");
 
-    protected static final String FROM_DESCRIPTION = "Referral from command.";
+    protected static final String BY_DESCRIPTION = "Referral submit command";
     protected static final String INFO_DESCRIPTION = "View referral info for a user.";
     protected static final String HELP_DESCRIPTION = "Shows this help page.";
     protected static final String VERSION_DESCRIPTION = "Shows plugin version.";
@@ -75,11 +75,11 @@ public abstract class CommonReferralCommandNode<TCommandExecutor, TCommandSource
         descriptions = new HashMap<>();
         permissions = new HashMap<>();
         usages = new HashMap<>();
-        descriptions.put(FROM_ALIAS, c -> FROM_DESCRIPTION);
+        descriptions.put(BY_ALIAS, c -> BY_DESCRIPTION);
         descriptions.put(INFO_ALIAS, c -> INFO_DESCRIPTION);
         descriptions.put(HELP_ALIAS, c -> HELP_DESCRIPTION);
         descriptions.put(VERSION_ALIAS, c -> VERSION_DESCRIPTION);
-        usages.put(FROM_ALIAS, c -> "<user>");
+        usages.put(BY_ALIAS, c -> "<user>");
         usages.put(INFO_ALIAS, c -> "[<user>]");
     }
 

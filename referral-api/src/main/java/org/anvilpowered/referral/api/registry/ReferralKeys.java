@@ -30,8 +30,8 @@ import java.util.Map;
 public class ReferralKeys {
 
     //permissions
-    public static final Key<String> FROM_PERMISSION = new Key<String>("FROM_PERMISSION",
-        "referral.user.from") {
+    public static final Key<String> BY_PERMISSION = new Key<String>("BY_PERMISSION",
+        "referral.user.by") {
     };
     public static final Key<String> INFO_PERMISSION = new Key<String>(
         "INFO_PERMISSION", "referral.admin.info") {
@@ -107,7 +107,7 @@ public class ReferralKeys {
 
     static {
         Keys.startRegistration("referral")
-            .register(FROM_PERMISSION)
+            .register(BY_PERMISSION)
             .register(INFO_PERMISSION)
             .register(REFERRER_ECO)
             .register(REFERRER_ITEMS)

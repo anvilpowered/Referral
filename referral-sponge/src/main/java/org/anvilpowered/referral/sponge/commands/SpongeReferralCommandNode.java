@@ -52,9 +52,9 @@ public class SpongeReferralCommandNode
 
         Map<List<String>, CommandSpec> subCommands = new HashMap<>();
 
-        subCommands.put(FROM_ALIAS, CommandSpec.builder()
-            .description(Text.of(FROM_DESCRIPTION))
-            .permission(registry.getOrDefault(ReferralKeys.FROM_PERMISSION))
+        subCommands.put(BY_ALIAS, CommandSpec.builder()
+            .description(Text.of(BY_DESCRIPTION))
+            .permission(registry.getOrDefault(ReferralKeys.BY_PERMISSION))
             .arguments(GenericArguments.onlyOne(
                 GenericArguments.user(Text.of("user")))
             )
@@ -91,6 +91,6 @@ public class SpongeReferralCommandNode
             .build();
 
         Sponge.getCommandManager()
-            .register(environment.getPlugin(), root, "referral");
+            .register(environment.getPlugin(), root, "referral", "referred");
     }
 }
