@@ -19,14 +19,16 @@
 package org.anvilpowered.referral.common.member;
 
 import com.google.inject.Inject;
-import org.anvilpowered.anvil.api.registry.Registry;
 import org.anvilpowered.anvil.api.plugin.PluginInfo;
+import org.anvilpowered.anvil.api.registry.Registry;
 import org.anvilpowered.anvil.api.util.TextService;
 import org.anvilpowered.anvil.api.util.UserService;
 import org.anvilpowered.anvil.base.datastore.BaseManager;
 import org.anvilpowered.referral.api.member.MemberManager;
 import org.anvilpowered.referral.api.member.MemberRepository;
 import org.anvilpowered.referral.api.model.Member;
+import org.anvilpowered.referral.api.registry.ReferralKeys;
+import org.anvilpowered.referral.api.service.TierService;
 
 import java.util.List;
 import java.util.UUID;
@@ -54,6 +56,9 @@ public class CommonMemberManager<
     protected CommonMemberManager(Registry registry) {
         super(registry);
     }
+
+    @Inject
+    private TierService tierService;
 
     @Override
     public CompletableFuture<TString> info(UUID userUUID) {
@@ -111,6 +116,12 @@ public class CommonMemberManager<
                             .green().append("You have successfully referred ")
                             .gold().append(userService.getUserName(userUUID))
                             .sendTo((TCommandSource) p));
+                    if (registry.getOrDefault(ReferralKeys.TIERED_MODE_ENABLED)) {
+                        if(tierService.getCurrentTierForUser(userUUID).referralRequirement
+                            >= tierService.getNextTierForUser(userUUID).referralRequirement) {
+                            //TODO tier reward giving
+                        }
+                    }
                     return textService.builder()
                         .append(pluginInfo.getPrefix())
                         .green().append("You have successfully been referred by ")
