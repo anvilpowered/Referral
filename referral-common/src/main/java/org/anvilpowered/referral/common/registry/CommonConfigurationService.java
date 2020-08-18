@@ -35,20 +35,34 @@ public class CommonConfigurationService extends BaseConfigurationService {
         super(configLoader);
         setDefault(Keys.DATA_DIRECTORY, ReferralPluginInfo.id);
         setDefault(Keys.MONGODB_DBNAME, ReferralPluginInfo.id);
+
         //define nodes
         setName(ReferralKeys.MODULES_ROOT, "modules");
         setName(ReferralKeys.TIERS_ROOT, "tiers");
         setName(ReferralKeys.REWARDS_ROOT, "rewards");
-        setName(ReferralKeys.REWARD_ECO, "rewards.eco");
-        setName(ReferralKeys.REWARD_ITEMS, "rewards.items");
-        setName(ReferralKeys.REWARD_KIT, "rewards.kit");
-        setName(ReferralKeys.REWARD_PERMISSIONS, "rewards.permissions");
-        setName(ReferralKeys.REWARD_COMMANDS, "rewards.commands");
+
+        //rewards for the referrer
+        setName(ReferralKeys.REFERRER_ECO, "rewards.referrer.eco");
+        setName(ReferralKeys.REFERRER_ITEMS, "rewards.referrer.items");
+        setName(ReferralKeys.REFERRER_KIT, "rewards.referrer.kit");
+        setName(ReferralKeys.REFERRER_PERMISSIONS, "rewards.referrer.permissions");
+        setName(ReferralKeys.REFERRER_COMMANDS, "rewards.referrer.commands");
+
+        //rewards for the referee
+        setName(ReferralKeys.REFEREE_ECO, "rewards.referee.eco");
+        setName(ReferralKeys.REFEREE_ITEMS, "rewards.referee.items");
+        setName(ReferralKeys.REFEREE_KIT, "rewards.referee.kit");
+        setName(ReferralKeys.REFEREE_PERMISSIONS, "rewards.referee.permissions");
+        setName(ReferralKeys.REFEREE_COMMANDS, "rewards.referee.commands");
+
+        //toggles
         setName(ReferralKeys.ECO_ENABLED, "modules.eco");
         setName(ReferralKeys.ITEMS_ENABLED, "modules.items");
         setName(ReferralKeys.KIT_ENABLED, "modules.kit");
         setName(ReferralKeys.COMMANDS_ENABLED, "modules.commands");
         setName(ReferralKeys.TIERED_MODE_ENABLED, "modules.tiered");
+
+        //tiers
         setName(ReferralKeys.TIERS, "tiers.tier");
 
         //comments

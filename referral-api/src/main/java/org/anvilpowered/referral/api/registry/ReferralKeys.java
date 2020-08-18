@@ -38,20 +38,35 @@ public class ReferralKeys {
     };
 
     //rewards
-    public static final Key<Integer> REWARD_ECO = new Key<Integer>(
-        "REWARD_ECO", 100) {
+    public static final Key<Integer> REFERRER_ECO = new Key<Integer>(
+        "REFERRER_ECO", 100) {
     };
-    public static final Key<List<String>> REWARD_ITEMS = new Key<List<String>>(
-        "REWARD_ITEMS", ImmutableList.of("minecraft:dirt", "minecraft:stone")) {
+    public static final Key<List<String>> REFERRER_ITEMS = new Key<List<String>>(
+        "REFERRER_ITEMS", ImmutableList.of("minecraft:dirt", "minecraft:stone")) {
     };
-    public static final Key<String> REWARD_KIT = new Key<String>(
-        "REWARD_KIT", "") {
+    public static final Key<String> REFERRER_KIT = new Key<String>(
+        "REFERRER_KIT", "") {
     };
-    public static final Key<List<String>> REWARD_PERMISSIONS = new Key<List<String>>(
-        "REWARD_PERMISSIONS", ImmutableList.of()) {
+    public static final Key<List<String>> REFERRER_PERMISSIONS = new Key<List<String>>(
+        "REFERRER_PERMISSIONS", ImmutableList.of()) {
     };
-    public static final Key<List<String>> REWARD_COMMANDS = new Key<List<String>>(
-        "REWARD_COMMANDS", ImmutableList.of()) {
+    public static final Key<List<String>> REFERRER_COMMANDS = new Key<List<String>>(
+        "REFERRER_COMMANDS", ImmutableList.of()) {
+    };
+    public static final Key<Integer> REFEREE_ECO = new Key<Integer>(
+        "REFEREE_ECO", 100) {
+    };
+    public static final Key<List<String>> REFEREE_ITEMS = new Key<List<String>>(
+        "REFEREE_ITEMS", ImmutableList.of("minecraft:dirt", "minecraft:stone")) {
+    };
+    public static final Key<String> REFEREE_KIT = new Key<String>(
+        "REFEREE_KIT", "") {
+    };
+    public static final Key<List<String>> REFEREE_PERMISSIONS = new Key<List<String>>(
+        "REFEREE_PERMISSIONS", ImmutableList.of()) {
+    };
+    public static final Key<List<String>> REFEREE_COMMANDS = new Key<List<String>>(
+        "REFEREE_COMMANDS", ImmutableList.of()) {
     };
 
     //toggles for rewards
@@ -94,11 +109,16 @@ public class ReferralKeys {
         Keys.startRegistration("referral")
             .register(FROM_PERMISSION)
             .register(INFO_PERMISSION)
-            .register(REWARD_ECO)
-            .register(REWARD_ITEMS)
-            .register(REWARD_KIT)
-            .register(REWARD_PERMISSIONS)
-            .register(REWARD_COMMANDS)
+            .register(REFERRER_ECO)
+            .register(REFERRER_ITEMS)
+            .register(REFERRER_KIT)
+            .register(REFERRER_PERMISSIONS)
+            .register(REFERRER_COMMANDS)
+            .register(REFEREE_ECO)
+            .register(REFEREE_ITEMS)
+            .register(REFEREE_KIT)
+            .register(REFEREE_PERMISSIONS)
+            .register(REFEREE_COMMANDS)
             .register(ECO_ENABLED)
             .register(ITEMS_ENABLED)
             .register(KIT_ENABLED)
