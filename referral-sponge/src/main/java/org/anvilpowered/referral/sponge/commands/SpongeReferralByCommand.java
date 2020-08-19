@@ -30,7 +30,7 @@ import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.Identifiable;
 
-public class SpongeReferralFromCommand implements CommandExecutor {
+public class SpongeReferralByCommand implements CommandExecutor {
 
     @Inject
     private MemberManager<Text> memberManager;

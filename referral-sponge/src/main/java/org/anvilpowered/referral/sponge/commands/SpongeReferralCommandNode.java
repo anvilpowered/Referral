@@ -37,7 +37,7 @@ public class SpongeReferralCommandNode
     extends CommonReferralCommandNode<CommandExecutor, CommandSource> {
 
     @Inject
-    private SpongeReferralFromCommand referralFromCommand;
+    private SpongeReferralByCommand referralFromCommand;
 
     @Inject
     private SpongeReferralInfoCommand referralInfoCommand;
