@@ -29,4 +29,7 @@ public class Tier {
 
     @Setting("commands")
     public List<String> commands;
+
+    @Setting("xp")
+    public int xp;
 }

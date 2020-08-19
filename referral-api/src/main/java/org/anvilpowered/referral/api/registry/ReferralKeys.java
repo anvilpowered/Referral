@@ -54,6 +54,9 @@ public class ReferralKeys {
     public static final Key<List<String>> REFERRER_COMMANDS = new Key<List<String>>(
         "REFERRER_COMMANDS", ImmutableList.of()) {
     };
+    public static final Key<Integer> REFERRER_XP = new Key<Integer>(
+        "REFERRER_XP", 10) {
+    };
     public static final Key<Integer> REFEREE_ECO = new Key<Integer>(
         "REFEREE_ECO", 100) {
     };
@@ -68,6 +71,9 @@ public class ReferralKeys {
     };
     public static final Key<List<String>> REFEREE_COMMANDS = new Key<List<String>>(
         "REFEREE_COMMANDS", ImmutableList.of()) {
+    };
+    public static final Key<Integer> REFEREE_XP = new Key<Integer>(
+        "REFEREE_XP", 10) {
     };
 
     //toggles for rewards
@@ -85,6 +91,9 @@ public class ReferralKeys {
     };
     public static final Key<Boolean> COMMANDS_ENABLED = new Key<Boolean>(
         "COMMANDS_ENABLED", true) {
+    };
+    public static final Key<Boolean> XP_ENABLED = new Key<Boolean>(
+        "XP_ENABLED", true) {
     };
 
     //toggle for tiered mode
@@ -118,16 +127,19 @@ public class ReferralKeys {
             .register(REFERRER_KIT)
             .register(REFERRER_PERMISSIONS)
             .register(REFERRER_COMMANDS)
+            .register(REFERRER_XP)
             .register(REFEREE_ECO)
             .register(REFEREE_ITEMS)
             .register(REFEREE_KIT)
             .register(REFEREE_PERMISSIONS)
             .register(REFEREE_COMMANDS)
+            .register(REFEREE_XP)
             .register(ECO_ENABLED)
             .register(ITEMS_ENABLED)
             .register(KIT_ENABLED)
             .register(PERMISSIONS_ENABLED)
             .register(COMMANDS_ENABLED)
+            .register(XP_ENABLED)
             .register(TIERED_MODE_ENABLED)
             .register(TIERS)
             .register(MODULES_ROOT)
@@ -148,6 +160,7 @@ public class ReferralKeys {
         iron.kit = "";
         iron.permissions = ImmutableList.of();
         iron.commands = ImmutableList.of("say %player% has been promoted to the Iron referral tier!");
+        iron.xp = 10;
 
         Map<String, Integer> goldItems = new HashMap<>();
         goldItems.put("minecraft:gold_ingot", 16);
@@ -160,6 +173,7 @@ public class ReferralKeys {
         gold.kit = "";
         gold.permissions = ImmutableList.of();
         gold.commands = ImmutableList.of("say %player% has been promoted to the Gold referral tier!");
+        gold.xp = 100;
 
         tiers.add(iron);
         tiers.add(gold);

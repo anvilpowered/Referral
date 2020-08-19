@@ -65,6 +65,10 @@ public class SpongeRewardService implements RewardService<Player> {
                 Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
             }
         }
+        if (registry.getOrDefault(ReferralKeys.XP_ENABLED)) {
+            String command = "xp " + tier.xp + " " + player.getName();
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+        }
     }
 
     @Override
@@ -95,7 +99,7 @@ public class SpongeRewardService implements RewardService<Player> {
             }
         }
         if (registry.getOrDefault(ReferralKeys.PERMISSIONS_ENABLED)) {
-            for(String permission: registry.getOrDefault(ReferralKeys.REFERRER_PERMISSIONS)) {
+            for (String permission : registry.getOrDefault(ReferralKeys.REFERRER_PERMISSIONS)) {
                 referrer.getSubjectData().setPermission(SubjectData.GLOBAL_CONTEXT, permission, Tristate.TRUE);
             }
         }
@@ -104,6 +108,11 @@ public class SpongeRewardService implements RewardService<Player> {
                 command = command.replace("%player%", referrer.getName());
                 Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
             }
+        }
+        if (registry.getOrDefault(ReferralKeys.XP_ENABLED)) {
+            String command = "xp " + registry.getOrDefault(ReferralKeys.REFERRER_XP) + " " + referrer.getName();
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+
         }
     }
 
@@ -135,7 +144,7 @@ public class SpongeRewardService implements RewardService<Player> {
             }
         }
         if (registry.getOrDefault(ReferralKeys.PERMISSIONS_ENABLED)) {
-            for(String permission: registry.getOrDefault(ReferralKeys.REFEREE_PERMISSIONS)) {
+            for (String permission : registry.getOrDefault(ReferralKeys.REFEREE_PERMISSIONS)) {
                 referee.getSubjectData().setPermission(SubjectData.GLOBAL_CONTEXT, permission, Tristate.TRUE);
             }
         }
@@ -144,6 +153,10 @@ public class SpongeRewardService implements RewardService<Player> {
                 command = command.replace("%player%", referee.getName());
                 Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
             }
+        }
+        if (registry.getOrDefault(ReferralKeys.XP_ENABLED)) {
+            String command = "xp " + registry.getOrDefault(ReferralKeys.REFEREE_XP) + " " + referee.getName();
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
         }
     }
 }
