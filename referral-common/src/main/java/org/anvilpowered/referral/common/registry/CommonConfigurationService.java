@@ -33,6 +33,8 @@ public class CommonConfigurationService extends BaseConfigurationService {
     @Inject
     public CommonConfigurationService(ConfigurationLoader<CommentedConfigurationNode> configLoader) {
         super(configLoader);
+        withMongoDB();
+        withDataStore();
         setDefault(Keys.DATA_DIRECTORY, ReferralPluginInfo.id);
         setDefault(Keys.MONGODB_DBNAME, ReferralPluginInfo.id);
 
@@ -59,6 +61,7 @@ public class CommonConfigurationService extends BaseConfigurationService {
         setName(ReferralKeys.ECO_ENABLED, "modules.eco");
         setName(ReferralKeys.ITEMS_ENABLED, "modules.items");
         setName(ReferralKeys.KIT_ENABLED, "modules.kit");
+        setName(ReferralKeys.PERMISSIONS_ENABLED, "modules.permissions");
         setName(ReferralKeys.COMMANDS_ENABLED, "modules.commands");
         setName(ReferralKeys.TIERED_MODE_ENABLED, "modules.tiered");
 
@@ -69,6 +72,7 @@ public class CommonConfigurationService extends BaseConfigurationService {
         setDescription(ReferralKeys.ECO_ENABLED, "\nToggle economy in rewards");
         setDescription(ReferralKeys.ITEMS_ENABLED, "\nToggle items in rewards");
         setDescription(ReferralKeys.KIT_ENABLED, "\nToggle kits in rewards");
+        setDescription(ReferralKeys.PERMISSIONS_ENABLED, "\nToggle permissions in rewards");
         setDescription(ReferralKeys.COMMANDS_ENABLED, "\nToggle commands in rewards");
         setDescription(ReferralKeys.TIERED_MODE_ENABLED,
             "\nToggles tiered mode." +

@@ -20,10 +20,12 @@ package org.anvilpowered.referral.sponge.module;
 
 import com.google.inject.TypeLiteral;
 import org.anvilpowered.anvil.api.command.CommandNode;
-import org.anvilpowered.referral.common.registry.CommonConfigurationService;
+import org.anvilpowered.referral.api.service.RewardService;
 import org.anvilpowered.referral.common.module.CommonModule;
+import org.anvilpowered.referral.common.registry.CommonConfigurationService;
 import org.anvilpowered.referral.sponge.commands.SpongeReferralCommandNode;
 import org.anvilpowered.referral.sponge.registry.SpongeConfigurationService;
+import org.anvilpowered.referral.sponge.service.SpongeRewardService;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.entity.living.player.User;
@@ -42,5 +44,8 @@ public class SpongeModule extends CommonModule<
 
         bind(new TypeLiteral<CommandNode<CommandSource>>() {
         }).to(SpongeReferralCommandNode.class);
+
+        bind(new TypeLiteral<RewardService<Player>>() {
+        }).to(SpongeRewardService.class);
     }
 }

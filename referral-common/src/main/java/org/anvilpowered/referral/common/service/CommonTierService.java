@@ -62,4 +62,18 @@ public class CommonTierService<TString> implements TierService {
             return null;
         }).join();
     }
+
+    @Override
+    public Tier getLowestTier() {
+        AtomicReference<Tier> lowestTier = new AtomicReference<>();
+        registry.getOrDefault(ReferralKeys.TIERS).forEach(t -> {
+            if (lowestTier.get() == null) {
+                lowestTier.set(t);
+            }
+            if (lowestTier.get().referralRequirement > t.referralRequirement) {
+                lowestTier.set(t);
+            }
+        });
+        return lowestTier.get();
+    }
 }

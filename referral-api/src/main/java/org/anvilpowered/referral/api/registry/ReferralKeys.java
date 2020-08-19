@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import org.anvilpowered.anvil.api.registry.Key;
 import org.anvilpowered.anvil.api.registry.Keys;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,8 +42,8 @@ public class ReferralKeys {
     public static final Key<Integer> REFERRER_ECO = new Key<Integer>(
         "REFERRER_ECO", 100) {
     };
-    public static final Key<List<String>> REFERRER_ITEMS = new Key<List<String>>(
-        "REFERRER_ITEMS", ImmutableList.of("minecraft:dirt", "minecraft:stone")) {
+    public static final Key<List<Map<String, Integer>>> REFERRER_ITEMS = new Key<List<Map<String, Integer>>>(
+        "REFERRER_ITEMS", ImmutableList.of(Collections.singletonMap("minecraft:dirt", 1))) {
     };
     public static final Key<String> REFERRER_KIT = new Key<String>(
         "REFERRER_KIT", "") {
@@ -56,8 +57,8 @@ public class ReferralKeys {
     public static final Key<Integer> REFEREE_ECO = new Key<Integer>(
         "REFEREE_ECO", 100) {
     };
-    public static final Key<List<String>> REFEREE_ITEMS = new Key<List<String>>(
-        "REFEREE_ITEMS", ImmutableList.of("minecraft:dirt", "minecraft:stone")) {
+    public static final Key<List<Map<String, Integer>>> REFEREE_ITEMS = new Key<List<Map<String, Integer>>>(
+        "REFEREE_ITEMS", ImmutableList.of(Collections.singletonMap("minecraft:dirt", 1))) {
     };
     public static final Key<String> REFEREE_KIT = new Key<String>(
         "REFEREE_KIT", "") {
@@ -79,8 +80,11 @@ public class ReferralKeys {
     public static final Key<Boolean> KIT_ENABLED = new Key<Boolean>(
         "KIT_ENABLED", false) {
     };
+    public static final Key<Boolean> PERMISSIONS_ENABLED = new Key<Boolean>(
+        "PERMISSIONS_ENABLED", false) {
+    };
     public static final Key<Boolean> COMMANDS_ENABLED = new Key<Boolean>(
-        "COMMANDS_ENABLED", false) {
+        "COMMANDS_ENABLED", true) {
     };
 
     //toggle for tiered mode
@@ -122,6 +126,7 @@ public class ReferralKeys {
             .register(ECO_ENABLED)
             .register(ITEMS_ENABLED)
             .register(KIT_ENABLED)
+            .register(PERMISSIONS_ENABLED)
             .register(COMMANDS_ENABLED)
             .register(TIERED_MODE_ENABLED)
             .register(TIERS)

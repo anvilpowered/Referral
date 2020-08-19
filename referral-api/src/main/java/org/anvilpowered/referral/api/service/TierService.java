@@ -9,4 +9,6 @@ public interface TierService {
     Tier getCurrentTierForUser(UUID userUUID);
 
     Tier getNextTierForUser(UUID userUUID);
+
+    Tier getLowestTier();
 }

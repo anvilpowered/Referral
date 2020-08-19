@@ -31,6 +31,7 @@ public class SpongePlayerListener {
 
     @Listener
     public void onPlayerJoin(ClientConnectionEvent.Login event) {
+        System.out.println("Player joined referral");
         memberManager.getPrimaryComponent()
             .getOneOrGenerateForUser(event.getTargetUser().getUniqueId());
     }

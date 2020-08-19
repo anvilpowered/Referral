@@ -28,6 +28,7 @@ import org.anvilpowered.referral.api.member.MemberManager;
 import org.anvilpowered.referral.api.member.MemberRepository;
 import org.anvilpowered.referral.api.model.Member;
 import org.anvilpowered.referral.api.registry.ReferralKeys;
+import org.anvilpowered.referral.api.service.RewardService;
 import org.anvilpowered.referral.api.service.TierService;
 
 import java.util.List;
@@ -60,6 +61,9 @@ public class CommonMemberManager<
     @Inject
     private TierService tierService;
 
+    @Inject
+    private RewardService<TPlayer> rewardService;
+
     @Override
     public CompletableFuture<TString> info(UUID userUUID) {
         return getPrimaryComponent().getOneForUser(userUUID).thenApplyAsync(optionalMember -> {
@@ -69,21 +73,21 @@ public class CommonMemberManager<
                     .append(
                         textService.builder()
                             .dark_gray().append("========= ")
-                            .gold().append(userService.getUserName(userUUID))
+                            .gold().append(userService.getUserName(userUUID).join().get())
                             .dark_gray().append(" =========")
                     )
                     .gray().append("\n\nReferred by: ");
                 if (member.getReferrerUserUUID() == null) {
                     builder.red().append("Not referred\n\n");
                 } else {
-                    builder.aqua().append(userService.getUserName(member.getReferrerUserUUID()));
+                    builder.aqua().append(userService.getUserName(member.getReferrerUserUUID()).join().get());
                 }
-                builder.gray().append("Referrals: ");
+                builder.gray().append("\nReferrals: ");
                 List<UUID> referrals = member.getReferredUserUUIDs();
                 if (referrals.size() == 0) {
                     builder.red().append("No referrals");
                 } else {
-                    builder.aqua().appendJoining(", ", referrals.stream().map(userService::getUserName));
+                    referrals.forEach(uuid -> builder.aqua().append(userService.getUserName(uuid).join().get()));
                 }
                 return builder.append("\n\n", textService.builder()
                     .dark_gray().append("========= ")
@@ -93,7 +97,7 @@ public class CommonMemberManager<
             }
             return textService.builder()
                 .append(pluginInfo.getPrefix())
-                .red().append("Could not find user ", userService.getUserName(userUUID))
+                .red().append("Could not find user ", userService.getUserName(userUUID).join().get())
                 .build();
         });
     }
@@ -114,18 +118,33 @@ public class CommonMemberManager<
                         textService.builder()
                             .append(pluginInfo.getPrefix())
                             .green().append("You have successfully referred ")
-                            .gold().append(userService.getUserName(userUUID))
+                            .gold().append(userService.getUserName(userUUID).join().orElse("null"))
                             .sendTo((TCommandSource) p));
                     if (registry.getOrDefault(ReferralKeys.TIERED_MODE_ENABLED)) {
-                        if(tierService.getCurrentTierForUser(userUUID).referralRequirement
-                            >= tierService.getNextTierForUser(userUUID).referralRequirement) {
-                            //TODO tier reward giving
+                        if (tierService.getCurrentTierForUser(targetUserUUID).tierName == null) {
+                            rewardService.giveTierRewardsToPlayer(
+                                userService.getPlayer(targetUserUUID).get(),
+                                tierService.getLowestTier()
+                            );
+                        } else if (tierService.getCurrentTierForUser(targetUserUUID).referralRequirement
+                            >= tierService.getNextTierForUser(targetUserUUID).referralRequirement) {
+                            rewardService.giveTierRewardsToPlayer(
+                                userService.getPlayer(targetUserUUID).get(),
+                                tierService.getNextTierForUser(targetUserUUID)
+                            );
                         }
+                    } else {
+                        if(userService.getPlayer(targetUserUUID).isPresent()) {
+                            rewardService.giveRewardsToReferrer(userService.getPlayer(targetUserUUID).get());
+                        }
+                    }
+                    if(userService.getPlayer(userUUID).isPresent()) {
+                        rewardService.giveRewardsToReferee(userService.getPlayer(userUUID).get());
                     }
                     return textService.builder()
                         .append(pluginInfo.getPrefix())
                         .green().append("You have successfully been referred by ")
-                        .gold().append(userService.getUserName(targetUserUUID))
+                        .gold().append(userService.getUserName(targetUserUUID).join().orElse("null"))
                         .build();
                 }
                 return textService.builder()
