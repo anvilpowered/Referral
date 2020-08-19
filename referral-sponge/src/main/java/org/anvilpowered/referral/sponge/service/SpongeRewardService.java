@@ -54,6 +54,10 @@ public class SpongeRewardService implements RewardService<Player> {
                 });
             }
         }
+        if (registry.getOrDefault(ReferralKeys.KIT_ENABLED)) {
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                "kit give " + player.getName() + " " + tier.kit);
+        }
         if (registry.getOrDefault(ReferralKeys.PERMISSIONS_ENABLED)) {
             for (String permission : tier.permissions) {
                 player.getSubjectData().setPermission(SubjectData.GLOBAL_CONTEXT, permission, Tristate.TRUE);
@@ -61,13 +65,13 @@ public class SpongeRewardService implements RewardService<Player> {
         }
         if (registry.getOrDefault(ReferralKeys.COMMANDS_ENABLED)) {
             for (String command : tier.commands) {
-                command = command.replace("%player%", player.getName());
-                Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+                Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                    command.replaceAll("%player%", player.getName()));
             }
         }
         if (registry.getOrDefault(ReferralKeys.XP_ENABLED)) {
-            String command = "xp " + tier.xp + " " + player.getName();
-            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                "xp " + tier.xp + " " + player.getName());
         }
     }
 
@@ -90,13 +94,17 @@ public class SpongeRewardService implements RewardService<Player> {
             for (Map<String, Integer> item : registry.getOrDefault(ReferralKeys.REFERRER_ITEMS)) {
                 item.forEach((itemName, amount) -> {
                     String command = "give %player% " + itemName + " " + amount;
-                    command = command.replace("%player%", referrer.getName());
+                    command = command.replaceAll("%player%", referrer.getName());
                     Sponge.getCommandManager().process(
                         Sponge.getServer().getConsole().getCommandSource().get(),
                         command
                     );
                 });
             }
+        }
+        if (registry.getOrDefault(ReferralKeys.KIT_ENABLED)) {
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                "kit give " + referrer.getName() + " " + registry.getOrDefault(ReferralKeys.REFERRER_KIT));
         }
         if (registry.getOrDefault(ReferralKeys.PERMISSIONS_ENABLED)) {
             for (String permission : registry.getOrDefault(ReferralKeys.REFERRER_PERMISSIONS)) {
@@ -105,13 +113,13 @@ public class SpongeRewardService implements RewardService<Player> {
         }
         if (registry.getOrDefault(ReferralKeys.COMMANDS_ENABLED)) {
             for (String command : registry.getOrDefault(ReferralKeys.REFERRER_COMMANDS)) {
-                command = command.replace("%player%", referrer.getName());
-                Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+                Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                    command.replaceAll("%player%", referrer.getName()));
             }
         }
         if (registry.getOrDefault(ReferralKeys.XP_ENABLED)) {
-            String command = "xp " + registry.getOrDefault(ReferralKeys.REFERRER_XP) + " " + referrer.getName();
-            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                "xp " + registry.getOrDefault(ReferralKeys.REFERRER_XP) + " " + referrer.getName());
 
         }
     }
@@ -135,13 +143,17 @@ public class SpongeRewardService implements RewardService<Player> {
             for (Map<String, Integer> item : registry.getOrDefault(ReferralKeys.REFEREE_ITEMS)) {
                 item.forEach((itemName, amount) -> {
                     String command = "give %player% " + itemName + " " + amount;
-                    command = command.replace("%player%", referee.getName());
+                    command = command.replaceAll("%player%", referee.getName());
                     Sponge.getCommandManager().process(
                         Sponge.getServer().getConsole().getCommandSource().get(),
                         command
                     );
                 });
             }
+        }
+        if (registry.getOrDefault(ReferralKeys.KIT_ENABLED)) {
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                "kit give " + referee.getName() + " " + registry.getOrDefault(ReferralKeys.REFEREE_KIT));
         }
         if (registry.getOrDefault(ReferralKeys.PERMISSIONS_ENABLED)) {
             for (String permission : registry.getOrDefault(ReferralKeys.REFEREE_PERMISSIONS)) {
@@ -150,13 +162,13 @@ public class SpongeRewardService implements RewardService<Player> {
         }
         if (registry.getOrDefault(ReferralKeys.COMMANDS_ENABLED)) {
             for (String command : registry.getOrDefault(ReferralKeys.REFEREE_COMMANDS)) {
-                command = command.replace("%player%", referee.getName());
+                command = command.replaceAll("%player%", referee.getName());
                 Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
             }
         }
         if (registry.getOrDefault(ReferralKeys.XP_ENABLED)) {
-            String command = "xp " + registry.getOrDefault(ReferralKeys.REFEREE_XP) + " " + referee.getName();
-            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(), command);
+            Sponge.getCommandManager().process(Sponge.getServer().getConsole().getCommandSource().get(),
+                "xp " + registry.getOrDefault(ReferralKeys.REFEREE_XP) + " " + referee.getName());
         }
     }
 }
