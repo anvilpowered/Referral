@@ -87,7 +87,11 @@ public class CommonMemberManager<
                 if (referrals.size() == 0) {
                     builder.red().append("No referrals");
                 } else {
-                    referrals.forEach(uuid -> builder.aqua().append(userService.getUserName(uuid).join().get()));
+                    referrals.forEach(uuid -> builder.aqua().append(userService.getUserName(uuid).join().orElse(
+                        "unknown")));
+                    if (registry.getOrDefault(ReferralKeys.TIERED_MODE_ENABLED)) {
+                        builder.gray().append("\nTier: ").aqua().append(tierService.getCurrentTierForUser(userUUID));
+                    }
                 }
                 return builder.append("\n\n", textService.builder()
                     .dark_gray().append("========= ")
@@ -134,11 +138,11 @@ public class CommonMemberManager<
                             );
                         }
                     } else {
-                        if(userService.getPlayer(targetUserUUID).isPresent()) {
+                        if (userService.getPlayer(targetUserUUID).isPresent()) {
                             rewardService.giveRewardsToReferrer(userService.getPlayer(targetUserUUID).get());
                         }
                     }
-                    if(userService.getPlayer(userUUID).isPresent()) {
+                    if (userService.getPlayer(userUUID).isPresent()) {
                         rewardService.giveRewardsToReferee(userService.getPlayer(userUUID).get());
                     }
                     return textService.builder()
