@@ -45,7 +45,7 @@ public class SpongeModule extends CommonModule<
         bind(new TypeLiteral<CommandNode<CommandSource>>() {
         }).to(SpongeReferralCommandNode.class);
 
-        bind(new TypeLiteral<RewardService<Player>>() {
+        bind(new TypeLiteral<RewardService<User>>() {
         }).to(SpongeRewardService.class);
     }
 }

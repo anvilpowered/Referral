@@ -28,13 +28,11 @@ import org.anvilpowered.anvil.api.registry.ConfigurationService;
 import org.anvilpowered.anvil.api.registry.Registry;
 import org.anvilpowered.referral.api.member.MemberManager;
 import org.anvilpowered.referral.api.member.MemberRepository;
-import org.anvilpowered.referral.api.service.TierService;
 import org.anvilpowered.referral.common.member.CommonMemberManager;
 import org.anvilpowered.referral.common.member.CommonMongoMemberRepository;
 import org.anvilpowered.referral.common.plugin.ReferralPluginInfo;
 import org.anvilpowered.referral.common.registry.CommonConfigurationService;
 import org.anvilpowered.referral.common.registry.ReferralRegistry;
-import org.anvilpowered.referral.common.service.CommonTierService;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
@@ -73,14 +71,6 @@ public class CommonModule<
             new TypeToken<ReferralPluginInfo<TString, TCommandSource>>(getClass()) {
             }
         );
-
-        be.bind(
-            new TypeToken<TierService>(getClass()) {
-            },
-            new TypeToken<CommonTierService<TString>>(getClass()) {
-            }
-        );
-
         be.withMongoDB();
 
         bind(ConfigurationService.class).to(CommonConfigurationService.class);

@@ -9,27 +9,27 @@ import java.util.Map;
 @ConfigSerializable
 public class Tier {
 
-    @Setting("tierName")
-    public String tierName;
+    @Setting
+    public String name;
 
-    @Setting("referralRequirement")
+    @Setting
     public int referralRequirement;
 
-    @Setting("economy")
+    @Setting
     public int economy;
 
-    @Setting("items")
+    @Setting
     public List<Map<String, Integer>> items;
 
-    @Setting("kit")
+    @Setting
     public String kit;
 
-    @Setting("permissions")
+    @Setting
     public List<String> permissions;
 
-    @Setting("commands")
+    @Setting
     public List<String> commands;
 
-    @Setting("xp")
+    @Setting
     public int xp;
 }

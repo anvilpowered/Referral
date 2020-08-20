@@ -2,11 +2,11 @@ package org.anvilpowered.referral.api.service;
 
 import org.anvilpowered.referral.api.registry.Tier;
 
-public interface RewardService<TPlayer> {
+public interface RewardService<TUser> {
 
-    void giveTierRewardsToPlayer(TPlayer player, Tier tier);
+    void giveTierRewardsToUser(TUser user, Tier tier);
 
-    void giveRewardsToReferrer(TPlayer referrer);
+    void giveRewardsToReferrer(TUser referrer);
 
-    void giveRewardsToReferee(TPlayer referee);
+    void giveRewardsToReferee(TUser referee);
 }

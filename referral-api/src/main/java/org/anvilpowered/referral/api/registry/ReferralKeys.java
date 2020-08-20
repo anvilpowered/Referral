@@ -153,7 +153,7 @@ public class ReferralKeys {
         ironItems.put("minecraft:iron_ingot", 1);
         ironItems.put("minecraft:stone", 10);
         Tier iron = new Tier();
-        iron.tierName = "Iron";
+        iron.name = "Iron";
         iron.referralRequirement = 1;
         iron.economy = 10;
         iron.items = ImmutableList.of(ironItems);
@@ -166,7 +166,7 @@ public class ReferralKeys {
         goldItems.put("minecraft:gold_ingot", 16);
         goldItems.put("minecraft:iron_ingot", 16);
         Tier gold = new Tier();
-        gold.tierName = "Gold";
+        gold.name = "Gold";
         gold.referralRequirement = 10;
         gold.economy = 100;
         gold.items = ImmutableList.of(goldItems);
