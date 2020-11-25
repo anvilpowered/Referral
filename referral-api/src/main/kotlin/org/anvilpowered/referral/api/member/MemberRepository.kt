@@ -33,6 +33,8 @@ interface MemberRepository<TKey, TDataStore> : Repository<TKey, Member<TKey>, TD
 
     fun addQueuedCommands(userUUID: UUID, commands: List<String>): CompletableFuture<Boolean>
 
+    fun clearQueuedCommands(userUUID: UUID): CompletableFuture<Boolean>
+
     fun refer(userUUID: UUID, referrerUserUUID: UUID): CompletableFuture<Boolean>
 
     fun top(): CompletableFuture<Iterable<Member<TKey>>>

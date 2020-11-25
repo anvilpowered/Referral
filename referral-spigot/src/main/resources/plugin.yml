@@ -1,0 +1,10 @@
+name: Referral
+version: "0.3.0-SNAPSHOT"
+main: org.anvilpowered.referral.spigot.ReferralSpigot
+api-version: 1.16
+description: A referral plugin
+depend: [Anvil]
+commands:
+  referral:
+    description: Referral root command
+    aliases: [ref]

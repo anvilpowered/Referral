@@ -39,6 +39,10 @@ class CommonMongoMemberRepository
         return update(asQuery(userUUID), createUpdateOperations().addToSet("queuedCommands", commands))
     }
 
+    override fun clearQueuedCommands(userUUID: UUID): CompletableFuture<Boolean> {
+        return update(asQuery(userUUID), createUpdateOperations().unset("queuedCommands"))
+    }
+
     override fun refer(userUUID: UUID, referrerUserUUID: UUID): CompletableFuture<Boolean> {
         val query1 = asQuery(userUUID)
         val query2 = asQuery(referrerUserUUID)
@@ -48,22 +52,27 @@ class CommonMongoMemberRepository
             when {
                 r1 && r2 -> return@thenCombine true
                 !r1 && !r2 -> {
-                    logger.error("Failed to add uuid to referredUserUUIDs and set referrerUserUUID")
+                    logger.error("Failed to add uuid to referredUserUUIDs for user $referrerUserUUID and set referrerUserUUID " +
+                        "for user $userUUID")
                     return@thenCombine false
                 }
             }
             if (r1) {
                 if (update(query1, unSet("referrerUserUUID")).join()) {
-                    logger.error("Failed to add uuid to referredUserUUIDs but reverted referrerUserUUID successfully")
+                    logger.error("Failed to add uuid to referredUserUUIDs for user $referrerUserUUID but successfully reverted " +
+                        "referrerUserUUID for user $userUUID")
                 } else {
-                    logger.error("Failed to add uuid to referredUserUUIDs and was unable to revert referrerUserUUID")
+                    logger.error("Failed to add uuid to referredUserUUIDs for user $referrerUserUUID and was unable to revert" +
+                        "referrerUserUUID for user $userUUID")
                 }
             }
             if (r2) {
                 if (update(query2, createUpdateOperations().removeAll("referredUserUUIDs", userUUID)).join()) {
-                    logger.error("Failed to set referrerUserUUID but reverted referredUserUUIDs successfully")
+                    logger.error("Failed to set referrerUserUUID for user $userUUID but successfully reverted" +
+                        "referredUserUUIDs for user $referrerUserUUID")
                 } else {
-                    logger.error("Failed to set referrerUserUUID and was unable to revert referredUserUUIDs")
+                    logger.error("Failed to set referrerUserUUID for user $userUUID and was unable to revert" +
+                        "referredUserUUIDs for user $referrerUserUUID")
                 }
             }
             false

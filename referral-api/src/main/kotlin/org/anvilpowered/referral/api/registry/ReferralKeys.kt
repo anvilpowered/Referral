@@ -27,7 +27,7 @@ import org.anvilpowered.anvil.api.registry.TypeTokens
 object ReferralKeys {
 
     val LIST_STRING = object : TypeToken<List<String>>() {}
-    val LIST_TIER = object : TypeToken<List<Tier>>() {}
+    val LIST_TIER = object : TypeToken<List<@JvmSuppressWildcards Tier>>() {}
     val UNIT = TypeToken.of(Unit::class.java)
 
     val EACH_REFERRAL_COMMANDS: Key<List<String>> =

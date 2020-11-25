@@ -44,7 +44,7 @@ open class CommonConfigurationService @Inject constructor(
             "say %player% has reached tier %tier% after referring %lastref% (%refcount% total referrals)",
         ))
         val defaultTiers: MutableList<Tier> = mutableListOf()
-        defaultTiers.add(Tier("wood", 2, listOf("give %player% oak_log 1",)))
+        defaultTiers.add(Tier("wood", 2, listOf("give %player% bookshelf 1",)))
         defaultTiers.add(Tier("stone", 5, listOf("give %player% stone 5",)))
         defaultTiers.add(Tier("iron", 10, listOf("give %player% iron 10")))
         setDefault(ReferralKeys.TIERS, defaultTiers)

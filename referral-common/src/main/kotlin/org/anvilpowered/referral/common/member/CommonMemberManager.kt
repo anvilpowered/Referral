@@ -72,7 +72,7 @@ class CommonMemberManager<TUser, TPlayer, TString, TCommandSource> @Inject const
                         .dark_gray().append(" =========")
                 ).gray().append("\n\nTier: ")
 
-            val tier = getTier(member.userUUID!!, member.referredUserUUIDs.size)
+            val tier = getTier(member.referredUserUUIDs.size)
             if (tier.first == null) {
                 builder.red().append("none")
             } else {
@@ -149,7 +149,7 @@ class CommonMemberManager<TUser, TPlayer, TString, TCommandSource> @Inject const
 
     private fun checkTier(referrerUserUUID: UUID, lastReferredUserName: String, referralCount: Int) {
         val commands = registry.getOrDefault(ReferralKeys.EACH_REFERRAL_COMMANDS).toMutableList()
-        val tier = getTier(referrerUserUUID, referralCount)
+        val tier = getTier(referralCount)
         if (tier.second && tier.first != null) {
             commands.addAll(registry.getOrDefault(ReferralKeys.EACH_TIER_COMMANDS))
             commands.addAll(tier.first!!.commands)
@@ -171,7 +171,7 @@ class CommonMemberManager<TUser, TPlayer, TString, TCommandSource> @Inject const
         }
     }
 
-    private fun getTier(userUUID: UUID, referralCount: Int): Pair<Tier?, Boolean> {
+    private fun getTier(referralCount: Int): Pair<Tier?, Boolean> {
         var matchingTier: Tier? = null
         var justReached = false
         for (tier in registry.getOrDefault(ReferralKeys.TIERS)) {
@@ -179,11 +179,14 @@ class CommonMemberManager<TUser, TPlayer, TString, TCommandSource> @Inject const
                 && tier.referralRequirement >= matchingTier?.referralRequirement ?: Int.MIN_VALUE
             ) {
                 matchingTier = tier
+                println("tier: $tier refCount: $referralCount")
                 if (tier.referralRequirement == referralCount) {
                     justReached = true
                 }
             }
         }
-        return Pair(matchingTier, justReached)
+        val ret = matchingTier to justReached
+        println(ret)
+        return ret
     }
 }

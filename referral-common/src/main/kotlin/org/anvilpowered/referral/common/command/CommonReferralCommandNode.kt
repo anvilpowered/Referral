@@ -45,7 +45,7 @@ abstract class CommonReferralCommandNode<TCommandExecutor, TCommandSource>(
 
         const val BY_USAGE = "<user>"
         const val INFO_USAGE = "[<user>]"
-        const val HELP_COMMAND = "/referral help"
+        const val HELP_USAGE = "/referral help"
     }
 
     private var alreadyLoaded = false

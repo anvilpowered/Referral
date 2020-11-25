@@ -26,6 +26,7 @@ import org.anvilpowered.referral.api.model.member.Member
 import org.slf4j.Logger
 import java.util.UUID
 import java.util.concurrent.CompletableFuture
+import kotlin.math.log
 
 abstract class CommonMemberRepository<TKey, TDataStore>
     : BaseRepository<TKey, Member<TKey>, TDataStore>(), MemberRepository<TKey, TDataStore> {
@@ -59,10 +60,14 @@ abstract class CommonMemberRepository<TKey, TDataStore>
 
     override fun onPlayerJoin(userUUID: UUID): CompletableFuture<Member<TKey>?> {
         return getOneForUser(userUUID) { it }.thenApplyAsync {
+            Thread.sleep(5000)
             if (it != null) {
                 for (command in it.queuedCommands) {
                     commandExecuteService.execute(command)
                 }
+            }
+            if (!clearQueuedCommands(userUUID).join()) {
+                logger.error("Failed to clear queued commands for user $userUUID")
             }
             it
         }

@@ -50,6 +50,12 @@ class CommonXodusMemberRepository
         }
     }
 
+    override fun clearQueuedCommands(userUUID: UUID): CompletableFuture<Boolean> {
+        return update(asQuery(userUUID)) { entity ->
+            entity.deleteBlob("queuedCommands")
+        }
+    }
+
     override fun refer(userUUID: UUID, referrerUserUUID: UUID): CompletableFuture<Boolean> {
         val query1 = asQuery(userUUID)
         val query2 = asQuery(referrerUserUUID)

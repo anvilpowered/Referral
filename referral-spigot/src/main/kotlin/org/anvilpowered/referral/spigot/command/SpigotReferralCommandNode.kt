@@ -16,37 +16,38 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.referral.velocity.command
+package org.anvilpowered.referral.spigot.command
 
 import com.google.inject.Inject
-import com.velocitypowered.api.command.Command
-import com.velocitypowered.api.command.CommandSource
-import com.velocitypowered.api.proxy.ProxyServer
 import org.anvilpowered.anvil.api.registry.Registry
-import org.anvilpowered.referral.common.ReferralPluginInfo
 import org.anvilpowered.referral.common.command.CommonReferralCommandNode
+import org.anvilpowered.referral.spigot.ReferralSpigot
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.CommandSender
 
-class VelocityReferralCommandNode @Inject constructor(
+class SpigotReferralCommandNode @Inject constructor(
     registry: Registry
-) : CommonReferralCommandNode<Command, CommandSource>(registry) {
+) : CommonReferralCommandNode<CommandExecutor, CommandSender>(registry) {
 
     @Inject
-    private lateinit var proxyServer: ProxyServer
+    private lateinit var byCommand: SpigotByCommand
 
     @Inject
-    private lateinit var byCommand: VelocityByCommand
+    private lateinit var infoCommand: SpigotInfoCommand
 
     @Inject
-    private lateinit var infoCommand: VelocityInfoCommand
+    private lateinit var plugin: ReferralSpigot
 
     override fun loadCommands() {
-        val subCommands: MutableMap<List<String>, Command> = mutableMapOf()
+        val subCommands: MutableMap<List<String>, CommandExecutor> = mutableMapOf()
         subCommands[BY_ALIAS] = byCommand
         subCommands[INFO_ALIAS] = infoCommand
         subCommands[HELP_ALIAS] = commandService.generateHelpCommand(this)
         subCommands[VERSION_ALIAS] = commandService.generateVersionCommand(HELP_USAGE)
-        proxyServer.commandManager.register(
-            proxyServer.commandManager.metaBuilder(ReferralPluginInfo.id).aliases("ref").build(),
+
+        val root = plugin.getCommand(name)!!
+
+        root.setExecutor(
             commandService.generateRoutingCommand(
                 commandService.generateRootCommand(HELP_USAGE), subCommands, false
             )
