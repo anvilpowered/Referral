@@ -1,0 +1,31 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+jar.enabled = false // we only want shadowJar
+
+repositories {
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
+}
+
+dependencies {
+    implementation project(':referral-api')
+    implementation project(':referral-common')
+    implementation configurate_hocon
+    implementation spigot
+}
+
+shadowJar {
+    String jarName = "OnTime-Spigot-${project.version}.jar"
+    println "Building: " + jarName
+    archiveFileName = jarName
+
+    dependencies {
+        include project(':referral-api')
+        include project(':referral-common')
+    }
+}
+
+artifacts {
+    archives shadowJar
+}

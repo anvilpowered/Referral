@@ -1,0 +1,30 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+jar.enabled = false // we only want shadowJar
+
+repositories {
+    maven { url 'https://repo.velocitypowered.com/snapshots/' }
+}
+dependencies {
+    implementation project(':referral-api')
+    implementation project(':referral-common')
+    implementation velocity
+    kapt velocity
+}
+
+shadowJar {
+    String jarName = "Referral-Velocity-${project.version}.jar"
+    println "Building: " + jarName
+    archiveFileName = jarName
+
+    dependencies {
+        include project(':referral-api')
+        include project(':referral-common')
+    }
+}
+
+artifacts {
+    archives shadowJar
+}
