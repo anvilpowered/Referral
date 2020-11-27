@@ -5,5 +5,3 @@ include 'referral-common'
 include 'referral-spigot'
 include 'referral-sponge'
 include 'referral-velocity'
-include 'referral-spigot'
-
